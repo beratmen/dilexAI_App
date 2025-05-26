@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -50,7 +49,6 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
   final TextEditingController _konuController = TextEditingController();
 
   bool _isLoading = false;
-  final String _apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
 
   @override
   void dispose() {
@@ -64,45 +62,11 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
   }
 
   Future<String> _generateDilekceWithAI() async {
-    if (_apiKey.isEmpty) {
-      return 'API anahtarı bulunamadı. Lütfen .env dosyasını kontrol edin.';
-    }
-
+    // API key check - return message since API key has been removed
     setState(() {
-      _isLoading = true;
+      _isLoading = false;
     });
-
-    try {
-      final model = GenerativeModel(
-        model: 'gemini-1.5-pro',
-        apiKey: _apiKey,
-      );
-
-      final prompt = '''
-      Aşağıdaki bilgilere göre resmi bir dilekçe metni oluştur:
-      
-      Gönderilen Kurum: ${_kurumController.text}
-      Konu: ${_konuController.text}
-      Dilekçe Başlığı: ${_baslikController.text}
-      
-      Dilekçeyi resmi dilekçe formatında hazırla. Giriş, gelişme ve sonuç şeklinde, 
-      nazik ve saygılı bir dilde oluştur. "Gereğini arz ederim." ifadesiyle sonlandır.
-      ''';
-
-      final content = [Content.text(prompt)];
-      final response = await model.generateContent(content);
-
-      setState(() {
-        _isLoading = false;
-      });
-
-      return response.text ?? 'Dilekçe metni oluşturulamadı.';
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
-      return 'Bir hata oluştu: $e';
-    }
+    return 'API anahtarı kaldırıldı. Uygulamayı kullanmak için API anahtarınızı yapılandırın.';
   }
 
   Future<void> _pdfOlusturVeYazdir() async {
