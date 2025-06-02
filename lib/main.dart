@@ -9,7 +9,7 @@ import 'package:printing/printing.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // .env dosyasını yükle
+  // Load .env file
   await dotenv.load();
   runApp(const MyApp());
 }
@@ -25,51 +25,51 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const DilekceYazmaEkrani(title: 'dilexAI App'),
+      home: const PetitionScreen(title: 'dilexAI App'),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class DilekceYazmaEkrani extends StatefulWidget {
-  const DilekceYazmaEkrani({super.key, required this.title});
+class PetitionScreen extends StatefulWidget {
+  const PetitionScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<DilekceYazmaEkrani> createState() => _DilekceYazmaEkraniState();
+  State<PetitionScreen> createState() => _PetitionScreenState();
 }
 
-class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
-  final TextEditingController _dilekceController = TextEditingController();
-  final TextEditingController _baslikController = TextEditingController();
-  final TextEditingController _adSoyadController = TextEditingController();
-  final TextEditingController _adresController = TextEditingController();
-  final TextEditingController _kurumController = TextEditingController();
-  final TextEditingController _konuController = TextEditingController();
+class _PetitionScreenState extends State<PetitionScreen> {
+  final TextEditingController _petitionController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _institutionController = TextEditingController();
+  final TextEditingController _subjectController = TextEditingController();
 
   bool _isLoading = false;
 
   @override
   void dispose() {
-    _dilekceController.dispose();
-    _baslikController.dispose();
-    _adSoyadController.dispose();
-    _adresController.dispose();
-    _kurumController.dispose();
-    _konuController.dispose();
+    _petitionController.dispose();
+    _titleController.dispose();
+    _fullNameController.dispose();
+    _addressController.dispose();
+    _institutionController.dispose();
+    _subjectController.dispose();
     super.dispose();
   }
 
-  Future<String> _generateDilekceWithAI() async {
+  Future<String> _generatePetitionWithAI() async {
     // API key check - return message since API key has been removed
     setState(() {
       _isLoading = false;
     });
-    return 'API anahtarı kaldırıldı. Uygulamayı kullanmak için API anahtarınızı yapılandırın.';
+    return 'API key has been removed. Please configure your API key to use this feature.';
   }
 
-  Future<void> _pdfOlusturVeYazdir() async {
+  Future<void> _generatePdfAndPrint() async {
     final pdf = pw.Document();
 
     pdf.addPage(
@@ -82,7 +82,7 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
               pw.SizedBox(height: 40),
               pw.Center(
                 child: pw.Text(
-                  _kurumController.text.toUpperCase(),
+                  _institutionController.text.toUpperCase(),
                   style: pw.TextStyle(
                       fontWeight: pw.FontWeight.bold, fontSize: 14),
                 ),
@@ -90,15 +90,15 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
               pw.SizedBox(height: 20),
               pw.Center(
                 child: pw.Text(
-                  _baslikController.text.toUpperCase(),
+                  _titleController.text.toUpperCase(),
                   style: pw.TextStyle(
                       fontWeight: pw.FontWeight.bold, fontSize: 12),
                 ),
               ),
               pw.SizedBox(height: 20),
-              pw.Text(_dilekceController.text),
+              pw.Text(_petitionController.text),
               pw.SizedBox(height: 20),
-              pw.Text("Gereğini arz ederim."),
+              pw.Text("Respectfully submitted."),
               pw.SizedBox(height: 10),
               pw.Text(DateTime.now().toString().substring(0, 10)),
               pw.SizedBox(height: 20),
@@ -107,9 +107,9 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
                 child: pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.end,
                   children: [
-                    pw.Text(_adSoyadController.text),
+                    pw.Text(_fullNameController.text),
                     pw.SizedBox(height: 5),
-                    pw.Text(_adresController.text),
+                    pw.Text(_addressController.text),
                   ],
                 ),
               ),
@@ -124,15 +124,15 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
     );
   }
 
-  Future<void> _dilekcePaylas() async {
-    final dilekceMetni = _olusturDilekceMetni();
+  Future<void> _sharePetition() async {
+    final petitionText = _generatePetitionText();
     final tempDir = await getTemporaryDirectory();
-    final file = File('${tempDir.path}/dilekce.txt');
-    await file.writeAsString(dilekceMetni);
+    final file = File('${tempDir.path}/petition.txt');
+    await file.writeAsString(petitionText);
 
     await Share.shareXFiles(
       [XFile(file.path)],
-      text: 'dilexAI App ile oluşturulmuş dilekçem',
+      text: 'My petition generated with dilexAI App',
     );
   }
 
@@ -153,27 +153,27 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
           ],
         ),
         actions: [
-          // Yazdırma butonu
+          // Print button
           IconButton(
             icon: const Icon(Icons.print),
-            onPressed: _pdfOlusturVeYazdir,
-            tooltip: 'Yazdır',
+            onPressed: _generatePdfAndPrint,
+            tooltip: 'Print',
           ),
-          // Paylaşma butonu
+          // Share button
           IconButton(
             icon: const Icon(Icons.share),
-            onPressed: _dilekcePaylas,
-            tooltip: 'Paylaş',
+            onPressed: _sharePetition,
+            tooltip: 'Share',
           ),
-          // Kaydetme butonu
+          // Save button
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Dilekçe kaydedildi')),
+                const SnackBar(content: Text('Petition saved')),
               );
             },
-            tooltip: 'Kaydet',
+            tooltip: 'Save',
           ),
         ],
       ),
@@ -184,7 +184,7 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Logo ve başlık bölümü
+                  // Logo and title section
                   Center(
                     child: Column(
                       children: [
@@ -204,7 +204,7 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
                         ),
                         const SizedBox(height: 8),
                         const Text(
-                          'Dilekçelerinizi hızlı ve kolay bir şekilde oluşturun',
+                          'Create your petitions quickly and easily',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 16,
@@ -216,7 +216,7 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
                     ),
                   ),
 
-                  // Kişisel bilgiler bölümü
+                  // Personal information section
                   Card(
                     elevation: 2,
                     margin: const EdgeInsets.only(bottom: 16),
@@ -226,25 +226,25 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'Kişisel Bilgiler',
+                            'Personal Information',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 16),
                           TextField(
-                            controller: _adSoyadController,
+                            controller: _fullNameController,
                             decoration: const InputDecoration(
-                              labelText: 'Ad Soyad',
+                              labelText: 'Full Name',
                               border: OutlineInputBorder(),
                               prefixIcon: Icon(Icons.person),
                             ),
                           ),
                           const SizedBox(height: 12),
                           TextField(
-                            controller: _adresController,
+                            controller: _addressController,
                             maxLines: 2,
                             decoration: const InputDecoration(
-                              labelText: 'Adres',
+                              labelText: 'Address',
                               border: OutlineInputBorder(),
                               prefixIcon: Icon(Icons.home),
                             ),
@@ -254,7 +254,7 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
                     ),
                   ),
 
-                  // Dilekçe bilgileri bölümü
+                  // Petition details section
                   Card(
                     elevation: 2,
                     margin: const EdgeInsets.only(bottom: 16),
@@ -264,7 +264,7 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'Dilekçe Bilgileri',
+                            'Petition Details',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -272,27 +272,27 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
                           ),
                           const SizedBox(height: 16),
                           TextField(
-                            controller: _kurumController,
+                            controller: _institutionController,
                             decoration: const InputDecoration(
-                              labelText: 'Dilekçe Gönderilecek Kurum',
+                              labelText: 'Institution to Send Petition',
                               border: OutlineInputBorder(),
                               prefixIcon: Icon(Icons.business),
                             ),
                           ),
                           const SizedBox(height: 12),
                           TextField(
-                            controller: _baslikController,
+                            controller: _titleController,
                             decoration: const InputDecoration(
-                              labelText: 'Dilekçe Başlığı',
+                              labelText: 'Petition Title',
                               border: OutlineInputBorder(),
                               prefixIcon: Icon(Icons.title),
                             ),
                           ),
                           const SizedBox(height: 12),
                           TextField(
-                            controller: _konuController,
+                            controller: _subjectController,
                             decoration: const InputDecoration(
-                              labelText: 'Dilekçe Konusu',
+                              labelText: 'Petition Subject',
                               border: OutlineInputBorder(),
                               prefixIcon: Icon(Icons.topic),
                             ),
@@ -302,7 +302,7 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
                     ),
                   ),
 
-                  // Dilekçe metni bölümü
+                  // Petition text section
                   Card(
                     elevation: 2,
                     child: Padding(
@@ -314,30 +314,30 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text(
-                                'Dilekçe Metni',
+                                'Petition Text',
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                               ElevatedButton.icon(
                                 onPressed: () async {
                                   final generatedText =
-                                      await _generateDilekceWithAI();
+                                      await _generatePetitionWithAI();
                                   setState(() {
-                                    _dilekceController.text = generatedText;
+                                    _petitionController.text = generatedText;
                                   });
                                 },
                                 icon: const Icon(Icons.auto_awesome),
-                                label: const Text('AI ile Oluştur'),
+                                label: const Text('Generate with AI'),
                               ),
                             ],
                           ),
                           const SizedBox(height: 16),
                           TextField(
-                            controller: _dilekceController,
+                            controller: _petitionController,
                             maxLines: 10,
                             decoration: const InputDecoration(
                               hintText:
-                                  'Dilekçenizi buraya yazınız veya AI ile oluşturunuz...',
+                                  'Write your petition here or generate with AI...',
                               border: OutlineInputBorder(),
                               alignLabelWithHint: true,
                             ),
@@ -351,66 +351,66 @@ class _DilekceYazmaEkraniState extends State<DilekceYazmaEkrani> {
             ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Dilekçeyi oluştur
-          final dilekceMetni = _olusturDilekceMetni();
+          // Create the petition
+          final petitionText = _generatePetitionText();
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text('Dilekçe Önizleme'),
+              title: const Text('Petition Preview'),
               content: SingleChildScrollView(
-                child: Text(dilekceMetni),
+                child: Text(petitionText),
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Kapat'),
+                  child: const Text('Close'),
                 ),
                 TextButton(
-                  onPressed: _pdfOlusturVeYazdir,
-                  child: const Text('Yazdır'),
+                  onPressed: _generatePdfAndPrint,
+                  child: const Text('Print'),
                 ),
                 TextButton(
                   onPressed: () {
-                    _dilekcePaylas();
+                    _sharePetition();
                     Navigator.pop(context);
                   },
-                  child: const Text('Paylaş'),
+                  child: const Text('Share'),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Dilekçe oluşturuldu')),
+                      const SnackBar(content: Text('Petition created')),
                     );
                   },
-                  child: const Text('Kaydet'),
+                  child: const Text('Save'),
                 ),
               ],
             ),
           );
         },
-        label: const Text('Dilekçe Oluştur'),
+        label: const Text('Create Petition'),
         icon: const Icon(Icons.create),
       ),
     );
   }
 
-  String _olusturDilekceMetni() {
-    final tarih = DateTime.now();
-    final tarihStr = '${tarih.day}.${tarih.month}.${tarih.year}';
+  String _generatePetitionText() {
+    final now = DateTime.now();
+    final dateStr = '${now.day}.${now.month}.${now.year}';
 
     return '''
-${_kurumController.text.toUpperCase()} MÜDÜRLÜĞÜNE
+${_institutionController.text.toUpperCase()} DIRECTORATE
 
-${_baslikController.text.toUpperCase()}
+${_titleController.text.toUpperCase()}
 
-${_dilekceController.text}
+${_petitionController.text}
 
-Gereğini arz ederim.
-$tarihStr
+Respectfully submitted.
+$dateStr
 
-${_adSoyadController.text}
-${_adresController.text}
+${_fullNameController.text}
+${_addressController.text}
 ''';
   }
 }

@@ -1,117 +1,117 @@
-# 📝 dilexAI App - Yapay Zeka Destekli Dilekçe Hazırlama Uygulaması
+# 📝 dilexAI App - AI-Powered Petition Generator Application
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Flutter](https://img.shields.io/badge/Flutter-3.0.0+-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-## 🚀 Proje Hakkında
+## 🚀 About the Project
 
-dilexAI App, yapay zeka teknolojisiyle resmi dilekçe oluşturmayı kolaylaştıran modern bir Flutter uygulamasıdır. Google'ın Gemini-1.5-Pro modeli kullanılarak geliştirilen bu uygulama, kullanıcıların kısa bir açıklama girerek profesyonel bir dilekçe metni oluşturmasına olanak tanır. Kullanıcı dostu arayüzü ve güçlü özellikleriyle dilekçe yazma sürecini basitleştirir ve hızlandırır.
+dilexAI App is a modern Flutter application designed to simplify the process of creating official petitions using artificial intelligence. Developed with Google's Gemini-1.5-Pro model, this app allows users to generate professional petition texts by simply entering a brief description. Its user-friendly interface and powerful features streamline and accelerate the petition writing process.
 
-## ✨ Özellikler
+## ✨ Features
 
-- 🤖 **Yapay Zeka ile Dilekçe Oluşturma**: Gemini API kullanarak metinleri otomatik oluşturma
-- 🔄 **Kişiselleştirilebilir Şablonlar**: Ad, soyad, adres ve kurum bilgilerini kolayca ekleyebilme
-- 📃 **PDF Formatında Çıktı**: Dilekçeleri profesyonel PDF belgesi olarak yazdırabilme
-- 📤 **Paylaşım Özellikleri**: Oluşturulan dilekçeleri doğrudan diğer uygulamalarla paylaşabilme
-- 🎨 **Kullanıcı Dostu Arayüz**: Material Design 3 ile tasarlanmış modern UI
-- 📱 **Çoklu Platform Desteği**: iOS, Android, web ve masaüstü platformlarında çalışabilme
+- 🤖 **AI-Powered Petition Generation**: Automatically generate petition texts using the Gemini API
+- 🔄 **Customizable Templates**: Easily add your name, surname, address, and institution information
+- 📃 **PDF Output**: Export petitions as professional PDF documents
+- 📤 **Sharing Features**: Instantly share generated petitions with other applications
+- 🎨 **User-Friendly Interface**: Modern UI designed with Material Design 3
+- 📱 **Multi-Platform Support**: Works on iOS, Android, web, and desktop platforms
 
-## 🛠️ Kullanılan Teknolojiler
+## 🛠️ Technologies Used
 
-### 📱 Uygulama Geliştirme
-- **Flutter Framework** (SDK >= 3.0.0) - Çoklu platform desteği için
-- **Dart Programlama Dili** - Modern ve güçlü nesne yönelimli dil
-- **Material Design 3** - Kullanıcı arayüzü için güncel tasarım sistemi
+### 📱 App Development
+- **Flutter Framework** (SDK >= 3.0.0) - For cross-platform support
+- **Dart Programming Language** - Modern and powerful OOP language
+- **Material Design 3** - Latest design system for UI
 
-### 🧠 Yapay Zeka
-- **Google Generative AI API** (Gemini-1.5-Pro) - Yapay zeka destekli metin üretimi
+### 🧠 Artificial Intelligence
+- **Google Generative AI API** (Gemini-1.5-Pro) - AI-powered text generation
 
-### 📄 Belge İşleme
-- **pdf** ve **printing** paketleri - PDF oluşturma ve yazdırma işlemleri
-- **share_plus** - Dosya paylaşımı işlemleri
-- **path_provider** - Dosya yönetimi
+### 📄 Document Processing
+- **pdf** and **printing** packages - For PDF creation and printing
+- **share_plus** - For file sharing
+- **path_provider** - For file management
 
-### 🔐 Güvenlik
-- **flutter_dotenv** - Çevre değişkenleri ve API anahtarları yönetimi
+### 🔐 Security
+- **flutter_dotenv** - For environment variable and API key management
 
-## 📋 Kurulum
+## 📋 Installation
 
-1. **Projeyi Klonlayın**:
+1. **Clone the Project**:
    ```bash
    git clone https://github.com/beratmen/dilexAI_App.git
    cd dilexAI_App
    ```
 
-2. **Bağımlılıkları Yükleyin**:
+2. **Install Dependencies**:
    ```bash
    flutter pub get
    ```
 
-3. **API Anahtarı Yapılandırması**:
-   - Bir `.env` dosyası oluşturun (kök dizinde)
-   - Aşağıdaki formatı kullanarak API anahtarınızı ekleyin:
+3. **API Key Configuration**:
+   - Create a `.env` file in the root directory
+   - Add your API key in the following format:
      ```
      GEMINI_API_KEY=your_api_key_here
      ```
-   - API anahtarınızı [Google AI Studio](https://makersuite.google.com/app/apikey) üzerinden edinebilirsiniz
+   - You can obtain your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
 
-4. **Uygulamayı Çalıştırın**:
+4. **Run the App**:
    ```bash
    flutter run
    ```
 
-## 📱 Kullanım
+## 📱 Usage
 
-1. **Kişisel Bilgiler**: Ad, soyad ve adres bilgilerinizi girin
-2. **Dilekçe Bilgileri**: Dilekçenin gönderileceği kurumu, başlığı ve konuyu belirtin
-3. **Yapay Zeka Desteği**: "AI ile Oluştur" butonuna tıklayarak dilekçe metnini otomatik olarak oluşturun veya manuel olarak yazın
-4. **Önizleme**: "Dilekçe Oluştur" butonuna basarak dilekçenizi önizleyin
-5. **İşlemler**: Dilekçenizi yazdırın, paylaşın veya kaydedin
+1. **Personal Information**: Enter your name, surname, and address
+2. **Petition Details**: Specify the institution, title, and subject of the petition
+3. **AI Support**: Click the "Generate with AI" button to automatically create the petition text or write it manually
+4. **Preview**: Click the "Create Petition" button to preview your petition
+5. **Actions**: Print, share, or save your petition
 
-## 🔮 Gelecek Sürümlerde Eklenecek Özellikler
+## 🔮 Features Planned for Future Releases
 
-- 🌐 **Çevrim Dışı Çalışma Modu**: İnternet bağlantısı olmadan çalışabilme
-- 🗃️ **Dilekçe Kütüphanesi**: Oluşturulan dilekçeleri saklama ve düzenleme
-- 🔍 **Gelişmiş Metin Düzenleme**: Zengin metin düzenleme seçenekleri
-- 🖌️ **Özel Şablonlar**: Kullanıcı tanımlı şablonlar oluşturabilme
-- 🔒 **Bulut Senkronizasyonu**: Verilerinizi cihazlar arasında senkronize etme
-- 🌙 **Karanlık Mod**: Göz yorgunluğunu azaltan karanlık tema desteği
-- 🔔 **Bildirim Sistemi**: Önemli dilekçeler için hatırlatıcılar
-- 🔄 **Dilekçe Takip Sistemi**: Gönderilen dilekçelerin durumunu takip etme
+- 🌐 **Offline Mode**: Work without an internet connection
+- 🗃️ **Petition Library**: Save and manage created petitions
+- 🔍 **Advanced Text Editing**: Rich text editing options
+- 🖌️ **Custom Templates**: Create user-defined templates
+- 🔒 **Cloud Sync**: Synchronize your data across devices
+- 🌙 **Dark Mode**: Eye-friendly dark theme support
+- 🔔 **Notification System**: Reminders for important petitions
+- 🔄 **Petition Tracking**: Track the status of sent petitions
 
-## 💡 Gelecekte Kullanılabilecek Teknolojiler
+## 💡 Technologies to Consider in the Future
 
-- **Firebase**: Kullanıcı kimlik doğrulama ve veritabanı entegrasyonu
-- **Flutter Bloc/Provider**: Durum yönetimi için gelişmiş mimari
-- **Hive/SQLite**: Yerel veri depolama için veritabanı çözümleri
-- **Biometric Authentication**: Biyometrik kimlik doğrulama (parmak izi, yüz tanıma)
-- **Cloud Firestore**: Gerçek zamanlı veritabanı desteği
-- **Google ML Kit**: Cihaz üzerinde yapay zeka işlemleri
-- **Connectivity Plus**: Ağ bağlantı durumu izleme
-- **Lottie**: Etkileyici animasyonlar için
-- **GetX/Riverpod**: Alternatif durum yönetimi çözümleri
+- **Firebase**: User authentication and database integration
+- **Flutter Bloc/Provider**: Advanced architecture for state management
+- **Hive/SQLite**: Local database solutions for data storage
+- **Biometric Authentication**: Fingerprint and face recognition
+- **Cloud Firestore**: Real-time database support
+- **Google ML Kit**: On-device AI features
+- **Connectivity Plus**: Network status monitoring
+- **Lottie**: Impressive animations
+- **GetX/Riverpod**: Alternative state management solutions
 
-## 📸 Ekran Görüntüleri
+## 📸 Screenshots
 
-*Uygulama ekran görüntüleri yakında eklenecek.*
+*App screenshots will be added soon.*
 
-## 📄 Lisans
+## 📄 License
 
-Bu proje MIT lisansı altında lisanslanmıştır. Daha fazla bilgi için [LICENSE](LICENSE) dosyasına bakın.
+This project is licensed under the MIT License. For more information, see the [LICENSE](LICENSE) file.
 
-## 👨‍💻 Geliştirici
+## 👨‍💻 Developer
 
 **Berat MEN**
 - 📧 Email: beratmen9@gmail.com
 - 🌐 GitHub: [github.com/beratmen](https://github.com/beratmen)
 
-## 🙏 Teşekkürler
+## 🙏 Acknowledgements
 
-- Google'ın Gemini API'si için Google ekibine
-- Flutter ekosistemini geliştiren herkese
-- Bu projeye katkı sağlayan tüm geliştiricilere
+- Thanks to the Google team for the Gemini API
+- Thanks to everyone who contributes to the Flutter ecosystem
+- Thanks to all developers who contribute to this project
 
 ---
 
-⭐️ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın! ⭐️
+⭐️ If you like this project, don't forget to give it a star! ⭐️
